@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #chatbox {
+      width: 300px;
+      height: 400px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .user { color: blue; }
+    .bot { color: green; }
+  </style>
+</head>
+<body>
+  <h2>Chatbot Demo</h2>
+  <div id="chatbox"></div>
+  <input type="text" id="userInput" placeholder="Type a message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+
+    function addMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = sender;
+      msg.textContent = sender + ": " + text;
+      chatbox.appendChild(msg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userText = input.value.trim();
+      if (!userText) return;
+      
+      addMessage("User", userText);
+      input.value = "";
+
+      // Simple bot logic
+      let botReply = "I didn't understand that.";
+      if (userText.toLowerCase().includes("hello")) {
+        botReply = "Hi there! How can I help you?";
+      } else if (userText.toLowerCase().includes("bye")) {
+        botReply = "Goodbye! Have a nice day!";
+      }
+
+      setTimeout(() => addMessage("Bot", botReply), 500);
+    }
+  </script>
+</body>
+</html>
